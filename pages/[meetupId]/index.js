@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import MeetupDetail from '../../components/meetups/MeetupDetail';
 import { MongoClient, ObjectId } from 'mongodb';
 import Head from 'next/head';
-import { MONGOURI } from '../../env';
 
 
 const MeetupDetails = (props) => {
@@ -28,7 +27,7 @@ const MeetupDetails = (props) => {
 export default MeetupDetails
 
 export async function getStaticPaths(){
-  const client = await MongoClient.connect(MONGOURI)
+  const client = await MongoClient.connect('mongodb+srv://suri:suri@myfirstcluster.qycng.mongodb.net/meetups?retryWrites=true&w=majority')
     const db = client.db() 
     const meetupsCollection = db.collection('meetups')
     const meetups = await meetupsCollection.find({},{_id:1}).toArray() //find all object and return only the id fields
@@ -42,7 +41,7 @@ export async function getStaticPaths(){
 
 export async function getStaticProps(context){
   const meetupId = context.params.meetupId
-  const client = await MongoClient.connect(MONGOURI)
+  const client = await MongoClient.connect('mongodb+srv://suri:suri@myfirstcluster.qycng.mongodb.net/meetups?retryWrites=true&w=majority')
   const db = client.db() 
   const meetupsCollection = db.collection('meetups')
   const meetup = await meetupsCollection.findOne({

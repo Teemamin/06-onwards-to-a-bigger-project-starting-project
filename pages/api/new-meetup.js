@@ -1,5 +1,4 @@
 import { MongoClient } from "mongodb"
-import { MONGOURI } from "../../env"
 
 const handler = async (req,res)=>{
     if(req.method === 'POST'){
@@ -7,7 +6,7 @@ const handler = async (req,res)=>{
         const {title,image,address,description} = data
         console.log(data)
 
-       const clinet = await MongoClient.connect(MONGOURI)
+       const clinet = await MongoClient.connect('mongodb+srv://suri:suri@myfirstcluster.qycng.mongodb.net/meetups?retryWrites=true&w=majority')
        const db = clinet.db() 
        const meetupsCollection = db.collection('meetups')
        const result = await meetupsCollection.insertOne(data)

@@ -1,7 +1,6 @@
 import MeatupList from '../components/meetups/MeetupList'
 import { MongoClient } from 'mongodb';
 import Head from 'next/head';
-import {MONGOURI} from '../env'
 
 
 const HomePage = (props) => {
@@ -31,7 +30,7 @@ export async function getStaticProps(){
     //d code here wont be in the client browser
     //Next.js will pre-render this page at build time using the props returned by getStaticProps.
     //nextjs will wait for this to run to finsh firdt before calling your component
-    const client = await MongoClient.connect(MONGOURI)
+    const client = await MongoClient.connect('mongodb+srv://suri:suri@myfirstcluster.qycng.mongodb.net/meetups?retryWrites=true&w=majority')
     const db = client.db() 
     const meetupsCollection = db.collection('meetups')
     const data = await meetupsCollection.find().toArray()
